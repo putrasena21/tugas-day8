@@ -5,6 +5,8 @@ const port = 3000;
 const morgan = require("morgan");
 app.use(morgan("dev"));
 
+app.use(express.json());
+
 const router = require("./routes");
 app.use("/api/v1", router);
 
