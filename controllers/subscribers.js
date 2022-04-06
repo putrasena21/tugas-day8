@@ -25,13 +25,7 @@ const addSubscriber = async (req, res) => {
 
 const getSubscribers = async (req, res) => {
   try {
-    const channel_id = req.params.id;
-
-    let subscribers = await Subscribers.findAll({
-      where: {
-        channel_id,
-      },
-    });
+    let subscribers = await Subscribers.findAll();
 
     res.status(200).json({
       status: "success",
@@ -49,17 +43,16 @@ const getSubscribers = async (req, res) => {
 
 const deleteSubscriber = async (req, res) => {
   try {
-    const channel_id = req.params.id;
+    const { id } = req.params;
 
     let subscriber = await Subscribers.findOne({
       where: {
-        channel_id,
-        user_id: req.params.user_id,
+        id,
       },
     });
 
     if (!subscriber) {
-      res.status(404).json({
+      return res.status(404).json({
         status: "error",
         message: "cant find subscriber with id " + channel_id,
         data: null,
