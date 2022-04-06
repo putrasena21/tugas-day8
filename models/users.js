@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
         as: "channel",
       });
 
-      Users.belongsToMany(models.Channels, {
-        through: "subscribers",
+      Users.hasMany(models.Subscribers, {
+        foreignKey: "user_id",
       });
     }
   }
