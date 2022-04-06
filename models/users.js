@@ -9,9 +9,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Users.hasOne(models.channels, {
+      Users.hasOne(models.Channels, {
         foreignKey: "user_id",
         as: "channel",
+      });
+
+      Users.belongsToMany(models.Channels, {
+        through: "subscribers",
       });
     }
   }

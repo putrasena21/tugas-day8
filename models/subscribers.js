@@ -9,20 +9,19 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Subscribers.belongsTo(models.Channel, {
+      Subscribers.belongsTo(models.Channels, {
         foreignKey: "channel_id",
-        as: "channel",
       });
-      Subscribers.hasMany(models.Users, {
+      Subscribers.belongsTo(models.Users, {
         foreignKey: "user_id",
-        as: "subscribers",
+        as: "subscriber",
       });
     }
   }
   Subscribers.init(
     {
-      user_id: DataTypes.INTEGER,
       channel_id: DataTypes.INTEGER,
+      user_id: DataTypes.INTEGER,
     },
     {
       sequelize,
