@@ -9,7 +9,7 @@ const {
 
 // CRUD
 router.post("/", addSubscriber); // create user
-router.get("/:id", getSubscribers); // getAll users
+router.get("/", getSubscribers); // getAll users
 router.delete("/:id", deleteSubscriber); // delete user
 
 module.exports = router;
