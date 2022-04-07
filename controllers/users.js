@@ -34,7 +34,7 @@ createUser = async (req, res) => {
 
 getUsers = async (req, res) => {
   try {
-    let users = await Users.findAll({ include: "channel" });
+    let users = await Users.findAll({ include: ["channel", "subscribe to"] });
 
     res.status(200).json({
       status: "success",
@@ -55,7 +55,7 @@ getUser = async (req, res) => {
     const user_id = req.params.id;
 
     let user = await Users.findOne({
-      include: "channel",
+      include: ["channel", "subscribe to"],
       where: {
         id: user_id,
       },

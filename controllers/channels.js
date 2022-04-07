@@ -57,7 +57,9 @@ createChannel = async (req, res) => {
 
 getChannels = async (req, res) => {
   try {
-    let channels = await Channels.findAll({ include: "creator" });
+    let channels = await Channels.findAll({
+      include: ["creator", "subscribers"],
+    });
 
     res.status(200).json({
       status: "success",
@@ -78,7 +80,7 @@ getChannel = async (req, res) => {
     const channel_id = req.params.id;
 
     let channel = await Channels.findOne({
-      include: "creator",
+      include: ["creator", "subscribers"],
       where: {
         id: channel_id,
       },

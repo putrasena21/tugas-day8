@@ -1,8 +1,22 @@
-const { Subscribers } = require("../models");
+const { Subscribers, Users, Channels } = require("../models");
 
 const addSubscriber = async (req, res) => {
   try {
     const { channel_id, user_id } = req.body;
+
+    let isExist = await Subscribers.findOne({
+      where: {
+        channel_id,
+        user_id,
+      },
+    });
+
+    if (isExist) {
+      return res.status(400).json({
+        status: "error",
+        message: "You are already subscribed to this channel",
+      });
+    }
 
     let newSubscriber = await Subscribers.create({
       channel_id,
@@ -25,7 +39,9 @@ const addSubscriber = async (req, res) => {
 
 const getSubscribers = async (req, res) => {
   try {
-    let subscribers = await Subscribers.findAll();
+    let subscribers = await Channels.findAll({
+      include: ["creator", "subscribers"],
+    });
 
     res.status(200).json({
       status: "success",
