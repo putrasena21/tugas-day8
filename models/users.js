@@ -13,9 +13,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "user_id",
         as: "channel",
       });
-
-      Users.hasMany(models.Subscribers, {
+      Users.belongsToMany(models.Channels, {
+        through: models.Subscribers,
         foreignKey: "user_id",
+        as: "subscribe to",
       });
     }
   }
